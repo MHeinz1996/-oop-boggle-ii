@@ -1,4 +1,4 @@
-from random import randrange
+from random import randrange, sample
 
 class BoggleBoard:
   grid = []
@@ -27,6 +27,8 @@ class BoggleBoard:
           else:
             BoggleBoard.grid.append(alphabet[j][rolls[i]]+' ')
 
+    BoggleBoard.grid = sample(BoggleBoard.grid, len(BoggleBoard.grid))
+    
     self.board = f"""
     {BoggleBoard.grid[0]} {BoggleBoard.grid[1]} {BoggleBoard.grid[2]} {BoggleBoard.grid[3]}
     {BoggleBoard.grid[4]} {BoggleBoard.grid[5]} {BoggleBoard.grid[6]} {BoggleBoard.grid[7]}
@@ -36,57 +38,57 @@ class BoggleBoard:
 
     return self.board
 
-  def include_word(self, word) -> str:
-    for i in word:
-      for j in range(len(BoggleBoard.grid)):
-        if(i == BoggleBoard.grid[j]):
-          BoggleBoard.search(j, i)
+  # def include_word(self, word) -> str:
+  #   for i in word:
+  #     for j in range(len(BoggleBoard.grid)):
+  #       if(i == BoggleBoard.grid[j]):
+  #         BoggleBoard.search(j, i)
 
-  @staticmethod
-  def search(index, char):
-      BoggleBoard.up(index, char)
+  # @staticmethod
+  # def search(index, char):
+  #     BoggleBoard.up(index, char)
 
-  @staticmethod
-  def up(index, char):
-    if(index > 3):
-      if(BoggleBoard.grid[index-4] == char):
-        BoggleBoard.search(index-4, BoggleBoard.grid[index-4])
-      else:
-        BoggleBoard.down(index, char)
-    else:
-      return BoggleBoard.down(index, char)
+  # @staticmethod
+  # def up(index, char):
+  #   if(index > 3):
+  #     if(BoggleBoard.grid[index-4] == char):
+  #       BoggleBoard.search(index-4, BoggleBoard.grid[index-4])
+  #     else:
+  #       BoggleBoard.down(index, char)
+  #   else:
+  #     return BoggleBoard.down(index, char)
   
-  @staticmethod
-  def down(index, char):
-    if(index < 12):
-      if(BoggleBoard.grid[index+4] == char):
-        BoggleBoard.search(index+4, BoggleBoard.grid[index+4])
-      else:
-        BoggleBoard.forward(index, char)
-    else:
-      return BoggleBoard.forward(index, char)
+  # @staticmethod
+  # def down(index, char):
+  #   if(index < 12):
+  #     if(BoggleBoard.grid[index+4] == char):
+  #       BoggleBoard.search(index+4, BoggleBoard.grid[index+4])
+  #     else:
+  #       BoggleBoard.forward(index, char)
+  #   else:
+  #     return BoggleBoard.forward(index, char)
 
-  @staticmethod
-  def forward(index, char):
-    if(index != 3 and index != 7 and index != 11 and index != 15):
-      if(BoggleBoard.grid[index+1] == char):
-        BoggleBoard.search(index+1, BoggleBoard.grid[index+1])
-      else:
-        BoggleBoard.backward(index, char)
-    else:
-      return BoggleBoard.backward(index, char)
+  # @staticmethod
+  # def forward(index, char):
+  #   if(index != 3 and index != 7 and index != 11 and index != 15):
+  #     if(BoggleBoard.grid[index+1] == char):
+  #       BoggleBoard.search(index+1, BoggleBoard.grid[index+1])
+  #     else:
+  #       BoggleBoard.backward(index, char)
+  #   else:
+  #     return BoggleBoard.backward(index, char)
 
-  @staticmethod
-  def backward(index, char):
-    if(index%4 != 0):
-      if(BoggleBoard.grid[index-1] == char):
-        BoggleBoard.search(index-1, BoggleBoard.grid[index-1])
-    else:
-      return False
+  # @staticmethod
+  # def backward(index, char):
+  #   if(index%4 != 0):
+  #     if(BoggleBoard.grid[index-1] == char):
+  #       BoggleBoard.search(index-1, BoggleBoard.grid[index-1])
+  #   else:
+  #     return False
 
 boggle = BoggleBoard()
 print(boggle.shake())
-print(boggle.board)
+# print(boggle.board)
 
 
 # Movement logic
